@@ -83,7 +83,7 @@ def init_weights(net, init_type='kaiming', scale=1, std=0.02):
 def define_G(opt):
     model_opt = opt['model']
     if model_opt['which_model_G'] == 'ddpm':
-        from .ddpm_modules import diffusion, unet
+        from .ddpm_modules import diffusion_mod, unet
     elif model_opt['which_model_G'] == 'sr3':
         from .sr3_modules import diffusion, unet
     if ('norm_groups' not in model_opt['unet']) or model_opt['unet']['norm_groups'] is None:
@@ -118,7 +118,7 @@ def define_G(opt):
         )
     else:
         raise NotImplementedError
-    netG = diffusion.GaussianDiffusion(
+    netG = diffusion_mod.GaussianDiffusion(
         model,
         image_size=model_opt['diffusion']['image_size'],
         channels=model_opt['diffusion']['channels'],
